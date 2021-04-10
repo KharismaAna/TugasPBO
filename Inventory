@@ -1,1 +1,85 @@
+package pboinventory;
+
+import java.util.Scanner;
+import java.util.InputMismatchException;
+
+public class Barang {
+    Scanner input = new Scanner(System.in);
+    int total;
+    
+    //Variabel yang sudah di beri Array untuk menentukan maksimum 
+    int[] kode = new int[50];
+    int[] harga = new int[50];
+    int[] stok = new int[50];
+    int[] jumlah = new int[50];
+    String[] nama = new String[50];
+    
+    public Barang(){
+    }
+    //Inputan user untuk keseluruhan data barang 
+      public void Datainput(){
+        try{
+            for(int i=0; i < total; i++){
+                System.out.println(("\n") + "Produk nomer : " + (i+1));
+                System.out.print(("\n") + "pilih '0' untuk kembali");
+                System.out.print(("\n") + "nama produk  : ");
+
+                input.nextLine();
+                kode[i] = i+1;
+                nama[i] = input.nextLine();
+                
+                //Program untuk pengecekan angka 0 dalam inputan yang berarti untuk kembali
+                if (nama[i].equals("0")){
+                    break;
+                }
+
+                System.out.print("harga produk : ");
+                harga[i]= input.nextInt();
+                System.out.print("stok produk  : ");
+                stok[i]= input.nextInt();
+                jumlah[i]=stok[i]*harga[i];
+                
+            }
+            //program untuk pengecekan inputan yang tidak berupa angka yang berarti
+            //kembali ke inputan awal
+        }catch (InputMismatchException e){
+            System.out.println("Inputan harus berupa angka!! ");
+            input.nextLine();
+            menu();
+        }
+    }
+      //inputan awal user untuk jumlah seluruh produk yang akan di data
+    public void menu(){
+        do{
+            System.out.print("masukkan jumlah produk : ");
+            total = input.nextInt();
+            //pengecekan inputan user untuk jumlah produk bahwa tidak boleh 
+            //bernilai 0 maupun negatif
+            if (total <= 0){
+                System.out.println("Kode produk tidak boleh bernilai 0 atau pun minus!!");
+            }else {
+                Datainput();
+            }
+        }while (total <= 0);
+    }
+    //Output akhir semua inputan user untuk data produk berserta total nilai
+    public void Outputnilai(){
+        for (int i =0; i < total ; i++){
+            System.out.println(("\n") + "Nomer produk : " + kode[i]);
+            System.out.println("Nama produk  : " + nama[i]);
+            System.out.println("Harga produk : " + harga[i]);
+            System.out.println("Stok produk  : " + stok[i]);
+            System.out.println("Total produk : " + jumlah[i] + ("\n"));
+            
+        }
+    }
+    //main class
+    public static void main(String[] args) {
+        Barang b = new Barang();
+        b.menu();
+        b.Outputnilai();
+        
+    }
+}
+    
 
